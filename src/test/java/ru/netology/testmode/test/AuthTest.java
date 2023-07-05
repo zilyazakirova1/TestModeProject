@@ -27,14 +27,15 @@ class AuthTest {
         $("[data-test-id='login'] input").setValue(registeredUser.getLogin());
         $("[data-test-id='password'] input").setValue(registeredUser.getPassword());
         $("button.button").click();
-        $("h2").shouldHave(Condition.exactText("Личный кабинет")).shouldBe(Condition.visible);
-
+        $("h2")
+                .shouldHave(Condition.exactText("Личный кабинет"))
+                .shouldBe((Condition.visible));
     }
 
     @Test
     @DisplayName("Should get error message if login with not registered user")
     void shouldGetErrorIfNotRegisteredUser() {
-        var notRegisteredUser = getRegisteredUser("Active");
+        var notRegisteredUser = getUser("Active");
         $("[data-test-id='login'] input").setValue(notRegisteredUser.getLogin());
         $("[data-test-id='password'] input").setValue(notRegisteredUser.getPassword());
         $("button.button").click();
@@ -46,7 +47,7 @@ class AuthTest {
     @Test
     @DisplayName("Should get error message if login with blocked registered user")
     void shouldGetErrorIfBlockedUser() {
-        var blockedUser = getUser("blocked");
+        var blockedUser = getRegisteredUser("blocked");
         $("[data-test-id='login'] input").setValue(blockedUser.getLogin());
         $("[data-test-id='password'] input").setValue(blockedUser.getPassword());
         $("button.button").click();
